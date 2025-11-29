@@ -16,7 +16,7 @@ services:
     networks: ["app-network"]
 
   # backend
-  frontend:
+  backend:
     build: ./backend
     depends_on:
       - mysql
@@ -32,7 +32,7 @@ services:
       DB_PASSWORD: 1234
       DB_NAME: a6
       JWT_SECRET: NTC&&1234
-      CHOKIDAR_USEPOLLING:true
+      CHOKIDAR_USEPOLLING: true
     networks: ["app-network"]
 
   # PMA
@@ -45,7 +45,7 @@ services:
     restart: always
     environment:
       PMA_HOST: mysql
-      PMA_ROOT: user
+      PMA_USER: user
       PMA_PASSWORD: 1234
     networks: ["app-network"]
 
@@ -56,7 +56,7 @@ services:
     ports: ["3307:3306"]
     restart: always
     volumes:
-      - ./database:/docker-endtrypoint-initdb.d 
+      - ./database:/docker-entrypoint-initdb.d 
     environment:
       MYSQL_ROOT_PASSWORD: 1234
       MYSQL_DATABASE: a6
