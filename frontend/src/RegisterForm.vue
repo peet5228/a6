@@ -61,7 +61,25 @@ const roles = [
     {text:'กรรมการประเมิน',value:'กรรมการประเมิน'},
     {text:'ผู้รับการประเมินผล',value:'ผู้รับการประเมินผล'},
 ]
+const emailReget = /^[^\s]+@[^\s]+\.[^\s]{2,}$/i
+function vaildateForm(){
+    error.value = {}
+    const f = form.value
+    if(!f.first_name.trim())error.value.first_name='กรุณากรอกชื่อ'
+    if(!f.last_name.trim())error.value.last_name='กรุณากรอกนามสกุล'
+    if(!f.email.trim())error.value.email='กรุณากรอกอีเมล'
+    else if(!emailReget.test(f.email.trim()))error.value.email='รูปแบบอีเมลไม่ถูกต้อง'
+    if(!f.username.trim())error.value.username='กรุณากรอกชื่อผู้ใช้'
+    else if(f.username.trim().length < 4)error.value.username='ต้องมีอย่างน้อย 4 ตัวอักษร'
+    if(!f.password.trim())error.value.password='กรุณากรอกรหัสผ่าน'
+    else if(f.password.trim().length < 6)error.value.password='ต้องมีอย่างน้อย 6 ตัวอักษร'
+    if(!confirmPassword.value.trim())error.value.confirmPassword='กรุณายืนยันรหัสผ่าน'
+    else if(confirmPassword.value.trim() != f.password.trim())error.value.confirmPassword='รหัสผ่านไม่ตรงกัน'
+    if(!f.role.trim())error.value.role='กรุณาเลือกประเภทสมาชิก'
+    return Object.keys(error.value).length === 0
+}
 const saveMember = async () =>{
+    if(!vaildateForm())return
     try{
         await axios.post(`http://localhost:3001/api/auth/regis`,form.value)
         alert('สมัครสำเร็จ')
