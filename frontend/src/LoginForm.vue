@@ -47,7 +47,7 @@ const Login = async () => {
         const useRole = res.data.role
         if(useRole === "ฝ่ายบุคลากร"){
             router.push('/Staff')
-        }else if(useRole === "กรรมกาประเมิน"){
+        }else if(useRole === "กรรมการประเมิน"){
             router.push('/Committee')
         }else if(useRole === 'ผู้รับการประเมินผล'){
             router.push('/Evaluatee')
