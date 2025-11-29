@@ -8,7 +8,8 @@ router.post('/login',async (req,res) => {
     try{
         const {username,password,role} = req.body
         const [rows] = await db.query(`select * from tb_member where username=? and password=? and role=?`,[username,password,role])
-        const m = jwt.sign(
+        const m = rows[0]
+        const token = jwt.sign(
             {id_member:m.id_member,username:m.username,role:m.role} , JWT_SECRET , {expiresIn:'2h'}
         )
         res.json({token,role:m.role})

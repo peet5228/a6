@@ -5,7 +5,17 @@
                 <v-card elevation="10" rounded="lg" color="#7d0c14">
                     <p class="text-center text-h5 font-weight-bold text-white">NTC EVALUATION SYSTEM</p>
                     <p class="text-center text-white">ระบบประเมินประเมินบุคลากรเบื้องต้น</p>
-                    <v-form @submit.prevent=""></v-form>
+                    <v-container class="bg-white">
+                        <p class="text-center text-h5 font-weight-bold">เข้าสู่ระบบ</p>
+                        <v-alert v-if="error" type="error" variant="tonal">{{ error }}</v-alert>
+                        <v-form @submit.prevent="Login">
+                            <v-text-field v-model="username" label="ชื่อผู้ใช้" prepend-inner-icon="mdi-account" />
+                            <v-text-field v-model="password" type="password" label="รหัสผ่าน" prepend-inner-icon="mdi-lock" />
+                            <v-select v-model="role" :items="g" label="ประเภทสมาชิก" prepend-inner-icon="mdi-account-group" />
+                            <v-btn color="#7d0c14" class="w-full" type="submit">เข้าสู่ระบบ</v-btn>
+                        </v-form>
+                        <center><router-link class="text-blue-500 hover:underline" to="/regis">สมัครสมาชิก</router-link></center>
+                    </v-container>
                 </v-card>
              </v-col>
         </v-row>
@@ -13,6 +23,40 @@
 </template>
 
 <script setup lang="ts">
+import axios from 'axios';
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+import authApi from '@/api/authApi'
+
+const router = useRouter()
+const username = ref('')
+const error = ref('')
+const password = ref('')
+const role = ref('')
+const g = ['ฝ่ายบุคลากร','กรรมการประเมิน','ผู้รับการประเมิน']
+
+const Login = async () => {
+    try{
+        const res = await authApi.login({
+            username:username.value,
+            password:password.value,
+            role:role.value,
+        })
+        console.log('API Response',res.data)
+        localStorage.setItem('token',res.data.token)
+        const useRole = res.data.role
+        if(useRole === "ฝ่ายบุคลากร"){
+            router.push('/Staff')
+        }else if(useRole === "กรรมกาประเมิน"){
+            router.push('/Committee')
+        }else if(useRole === 'ผู้รับการประเมินผล'){
+            router.push('/Evaluatee')
+        }
+    }catch(err){
+        console.error('Error Login',err)
+        error.value = error.response?.data?.message || 'เข้าสู่ระบบไม่สำเร็จ'
+    }
+}
 
 </script>
 
