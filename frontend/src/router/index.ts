@@ -11,6 +11,8 @@ import Committee from '@/views/Committee/index.vue'
 
 //Evaluatee
 import Evaluatee from '@/views/Evaluatee/index.vue'
+import ManageEva from '@/views/Staff/ManageEva.vue'
+import ManageCommit from '@/views/Staff/ManageCommit.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -39,6 +41,16 @@ const router = createRouter({
           path: '/Staff',
           name: 'Staff',
           component: Staff,
+        },
+        {
+          path: '/ManageEva',
+          name: 'ManageEva',
+          component: ManageEva,
+        },
+        {
+          path: '/ManageCommit',
+          name: 'ManageCommit',
+          component: ManageCommit,
         },
       ]
     },
