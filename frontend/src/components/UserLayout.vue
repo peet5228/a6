@@ -37,14 +37,14 @@ const logout = async () =>{
 }
 const roles = [
     //staff
-    {text:'หน้าหลัก',to:'/Staff',role:'ฝ่ายบุคลากร'},
+    {title:'หน้าหลัก',to:'/Staff',role:'ฝ่ายบุคลากร'},
 
     //commit
-    {text:'หน้าหลัก',to:'/Committee',role:'กรรมการประเมิน'},
+    {title:'หน้าหลัก',to:'/Committee',role:'กรรมการประเมิน'},
 
     //eva
-    {text:'หน้าหลัก',to:'/Evaluatee',role:'ผู้รับการประเมินผล'},
-    {text:'แก้ไขข้อมูลส่วนตัว',to:'/Edit_eva',role:'ผู้รับการประเมินผล'},
+    {title:'หน้าหลัก',to:'/Evaluatee',role:'ผู้รับการประเมินผล'},
+    {title:'แก้ไขข้อมูลส่วนตัว',to:'/Edit_eva',role:'ผู้รับการประเมินผล'},
 ]
 const navitem = computed(() =>
     roles.filter((item) => item.role.includes(user.value.role))
