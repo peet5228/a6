@@ -40,6 +40,9 @@ app.use('/api/Staff/eva',eva)
 const me = require('./routes/Eva/me')
 app.use('/api/Eva/me',me)
 
+const selfeva = require('./routes/Eva/selfeva')
+app.use('/api/Eva/selfeva',selfeva)
+
 
 app.use((req,res) => res.status(404).json({message:'ปิดปรับปรุง!'}))
 
