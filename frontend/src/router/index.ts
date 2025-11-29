@@ -26,6 +26,7 @@ import Eva from '@/views/Staff/Eva.vue'
 import Check_eva from '@/views/Evaluatee/Check_eva.vue'
 
 import Eva_commit from '@/views/Staff/Eva_commit.vue'
+import Score_evaList from '@/views/Staff/Score_evaList.vue'
 
 
 
@@ -91,6 +92,11 @@ const router = createRouter({
           path: '/Eva_commit/:id_eva',
           name: 'Eva_commit',
           component: Eva_commit,
+        },
+        {
+          path: '/Score_evaList',
+          name: 'Score_evaList',
+          component: Score_evaList,
         },
       ]
     },

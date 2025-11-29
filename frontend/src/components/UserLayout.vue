@@ -45,6 +45,8 @@ const roles = [
     {title:'จัดการรอบการประเมิน',to:'/Round_eva',role:'ฝ่ายบุคลากร'},
     {title:'จัดการแบบประเมิน',to:'/Eva',role:'ฝ่ายบุคลากร'},
 
+    {title:'รายงายผลการประเมินของผู้รับประเมิน',to:'/Score_evaList',role:'ฝ่ายบุคลากร'},
+
     //commit
     {title:'หน้าหลัก',to:'/Committee',role:'กรรมการประเมิน'},
 

@@ -9,6 +9,14 @@
                    
                         <hr class="mt-4">
                         <v-row class="mt-4">
+                            <template v-for="(c,index) in List" :key="index">
+                                <v-col cols="12" md="6">
+                                    <v-select v-model="c.id_member" :items="MEMBER(index).map(p => ({title: p.fullname_commit,value: p.id_member}))" :label="`กรรมการคนที่ ${index+1}`"></v-select>
+                                </v-col>
+                                <v-col cols="12" md="6">
+                                    <v-select v-model="c.role" :items="ROLE(index)" :label="`ตำแหน่งที่ ${index+1}`"></v-select>
+                                </v-col>
+                            </template>
                             <v-col cols="12" md="12" class="text-center"><v-btn type="submit" color="blue" class="w-full text-white">บันทึก</v-btn></v-col>
                         </v-row>
                     </v-form>
@@ -25,7 +33,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="(items,index) in result" :key="items.id_commit">
+                            <tr v-for="(items,index) in List" :key="items.id_commit">
                                 <td class="text-center border">{{ index+1 }}</td>
                                 <td class="text-center border">{{ nameOf(items.id_member) }}</td>
                                 <td class="text-center border">{{ items.role }}</td>
@@ -60,31 +68,49 @@ const List = ref([
 const fetch = async () => {
     try{
         const m = await axios.get(`${api}/commit/header/${id_eva}`)
-        header.value = m.data
-       
+        header.value = m.data[0]
+        const res = await axios.get(`${api}/commit/${id_eva}`)
+        people.value = res.data.before
+        const useData = res.data.after
+        if(useData.length === 0){
+            List.value = [
+                {id_commit:null,id_member:'',role:''},
+                {id_commit:null,id_member:'',role:''},
+                {id_commit:null,id_member:'',role:''},
+            ]
+        }else{
+            List.value = useData.map(c => ({
+                id_commit:c.id_commit,id_member:c.id_member,role:c.role
+            }))
+            while(List.value.length < 3){
+                List.value.push({id_commit:null,id_member:'',role:''})
+            }
+        }
+        console.log(res.data.after)
     }catch(err){
         console.error('Error Fetching',err)
     }
 }
 
-const nameMap = computed( () => Object.fromEntries(people.value.map(p => [p.id_member,p.fullname])) )
+const nameMap = computed( () => Object.fromEntries(people.value.map(p => [p.id_member,p.fullname_commit])) )
 const nameOf = (id:number) => nameMap.value[id]
 
 const MEMBER = (idx:number) => {
     const picked = List.value.map( (c,i) => (i !== idx ? c.id_member : null) )
-    return people.value.filter()
+    return people.value.filter(p => !picked.includes(p.id_member))
 }
+
+const ROLE = (idx:number) => {
+    const picked = List.value.map( (c,i) => (i !== idx ? c.role : null) )
+    return role.filter((p) => !picked.includes(p))
+}
+
 
 const saveMember = async () =>{
     try{
-        if(form.value.id_eva){
-            await axios.put(`${api}/eva/${form.value.id_eva}`,form.value)
-        }else{
-            await axios.post(`${api}/eva`,form.value)
-        }
+        await axios.post(`${api}/commit/${id_eva}`,List.value)
         alert('ทำรายการสำเร็จ')
         await fetch()
-        await reset()
     }catch(err){
         console.error('ทำรายการไม่สำเร็จ',err)
     }
@@ -93,9 +119,8 @@ const saveMember = async () =>{
 const del = async (id_eva:number) => {
     try{
         if(!confirm('ต้องการลบใช่หรือไม่')) return
-        await axios.delete(`${api}/eva/${id_eva}`)
+        await axios.delete(`${api}/commit/${id_eva}`)
         await fetch()
-        await reset()
     }catch(err){
         console.error('Error Delete',err)
     }
