@@ -26,6 +26,18 @@ router.get('/',async (req,res) => {
     }
 })
 
+// API สำหรับ Get ข้อมูล where params =============================================
+router.get('/:id_topic',async (req,res) => {
+    try{
+        const {id_topic} = req.params
+        const [rows] = await db.query(`select * from tb_topic where id_topic='${id_topic}' order by id_topic desc`)
+        res.json(rows)
+    }catch(err){
+        console.error('Error Get',err)
+        res.status(500).json({message:'Error Get'})
+    }
+})
+
 // API สำหรับ Insert ข้อมูล =============================================
 router.post('/',async (req,res) => {
     try{
@@ -43,13 +55,25 @@ router.put('/:id_topic',async (req,res) => {
     try{
         const {id_topic} = req.params
         const {name_topic} = req.body
-        const [rows] = await db.query(`update tb_topic values `,[name_topic])
-        res.json({rows,message:'Insert Success'})
+        const [rows] = await db.query(`update tb_topic set name_topic=? where id_topic='${id_topic}' `,[name_topic])
+        res.json({rows,message:'Update Success'})
     }catch(err){
-        console.error('Error Get',err)
-        res.status(500).json({message:'Error Get'})
+        console.error('Error Update',err)
+        res.status(500).json({message:'Error Update'})
     }
 })
 
+// API สำหรับ Delete ข้อมูล =============================================
+router.delete('/:id_topic',async (req,res) => {
+    try{
+        const {id_topic} = req.params
+        const [rows] = await db.query(`delete from tb_topic where id_topic='${id_topic}'`)
+        if(rows.affectedRows === 0) return res.status(403).json({message:'ไม่พบข้อมูลจากไอดีนี้'})
+        res.json({rows,message:'Delete Success'})
+    }catch(err){
+        console.error('Error Delete',err)
+        res.status(500).json({message:'Error Delete'})
+    }
+})
 
 module.exports = router
