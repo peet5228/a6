@@ -11,10 +11,17 @@ import Committee from '@/views/Committee/index.vue'
 
 //Evaluatee
 import Evaluatee from '@/views/Evaluatee/index.vue'
+
 import ManageEva from '@/views/Staff/ManageEva.vue'
 import ManageCommit from '@/views/Staff/ManageCommit.vue'
 import Topic from '@/views/Staff/Topic.vue'
 import Indicate from '@/views/Staff/Indicate.vue'
+
+import Edit_eva from '@/views/Evaluatee/Edit_eva.vue'
+import Selfeva from '@/views/Evaluatee/Selfeva.vue'
+import Round_eva from '@/views/Staff/Round_eva.vue'
+import Eva from '@/views/Staff/Eva.vue'
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -64,6 +71,16 @@ const router = createRouter({
           name: 'Indicate',
           component: Indicate,
         },
+        {
+          path: '/Round_eva',
+          name: 'Round_eva',
+          component: Round_eva,
+        },
+        {
+          path: '/Eva',
+          name: 'Eva',
+          component: Eva,
+        },
       ]
     },
 
@@ -89,6 +106,16 @@ const router = createRouter({
           path: '/Evaluatee',
           name: 'Evaluatee',
           component: Evaluatee,
+        },
+        {
+          path: '/Edit_eva',
+          name: 'Edit_eva',
+          component: Edit_eva,
+        },
+        {
+          path: '/Selfeva',
+          name: 'Selfeva',
+          component: Selfeva,
         },
       ]
     },

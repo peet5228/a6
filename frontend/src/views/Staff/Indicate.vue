@@ -33,16 +33,24 @@
                             <tr class="bg-gray-400">
                                 <th class="border text-center">ลำดับ</th>
                                 <th class="border text-center">หัวข้อ</th>
+                                <th class="border text-center">ชื่อตัวชี้วัด</th>
+                                <th class="border text-center">รายละเอียด</th>
+                                <th class="border text-center">น้ำหนักคะแนน</th>
+                                <th class="border text-center">ลักษณะตัวเลือกคะแนน</th>
                                 <th class="border text-center">จัดการ</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="(items,index) in result" :key="items.id_topic">
+                            <tr v-for="(items,index) in result" :key="items.id_indicate">
                                 <td class="text-center border">{{ index+1 }}</td>
                                 <td class="text-center border">{{ items.name_topic }}</td>
+                                <td class="text-center border">{{ items.name_indicate }}</td>
+                                <td class="text-center border">{{ items.detail_indicate }}</td>
+                                <td class="text-center border">{{ items.point_indicate }}</td>
+                                <td class="text-center border">{{ items.check_indicate === 'y' ? 'มี' : 'ไม่มี' }}</td>
                                 <td class="text-center border">
                                     <v-btn color="warning" class="text-white" size="small" @click="edit(items)">แก้ไข</v-btn>&nbsp;
-                                    <v-btn color="error" class="text-white" size="small" @click="del(items.id_topic)">ลบ</v-btn>
+                                    <v-btn color="error" class="text-white" size="small" @click="del(items.id_indicate)">ลบ</v-btn>
                                 </td>
                             </tr>
                             <tr v-if="result.length === 0">
@@ -96,22 +104,12 @@ const fetch = async () => {
     }
 } 
 
-const error = ref<Record<string,string>>({})
-
-function vaildateForm(){
-    error.value = {}
-    const f = form.value
-    if(!f.name_topic)error.value.name_topic='กรุณากรอกชื่อ'
-    return Object.keys(error.value).length === 0
-}
-
 const saveMember = async () =>{
-    if(!vaildateForm())return
     try{
-        if(form.value.id_topic){
-            await axios.put(`${api}/topic/${form.value.id_topic}`,form.value)
+        if(form.value.id_indicate){
+            await axios.put(`${api}/indicate/${form.value.id_indicate}`,form.value)
         }else{
-            await axios.post(`${api}/topic`,form.value)
+            await axios.post(`${api}/indicate`,form.value)
         }
         alert('ทำรายการสำเร็จ')
         await fetch()
@@ -125,10 +123,10 @@ const edit = (items:string) => {
     form.value = {...items}
 }
 
-const del = async (id_topic:number) => {
+const del = async (id_indicate:number) => {
     try{
         if(!confirm('ต้องการลบใช่หรือไม่')) return
-        await axios.delete(`${api}/topic/${id_topic}`)
+        await axios.delete(`${api}/indicate/${id_indicate}`)
         await fetch()
         await reset()
     }catch(err){
