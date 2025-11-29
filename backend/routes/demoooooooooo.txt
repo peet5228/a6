@@ -1,0 +1,18 @@
+const express = requir('express')
+const db = require('../../db')
+const router = express.Router()
+
+// ============================== Demo ================================
+// API สำหรับ Get ข้อมูล =============================================
+// router.get('/',async (req,res) => {
+//     try{
+//         const [rows] = await db.query(``)
+//         res.json(rows)
+//     }catch(err){
+//         console.error('Error Get',err)
+//         res.status(500).json({message:'Error Get'})
+//     }
+// })
+// ============================== Demo ================================
+
+module.exports = router
