@@ -11,6 +11,7 @@ import Committee from '@/views/Committee/index.vue'
 
 //Evaluatee
 import Evaluatee from '@/views/Evaluatee/index.vue'
+import Check_score from '@/views/Evaluatee/Check_score.vue'
 
 import ManageEva from '@/views/Staff/ManageEva.vue'
 import ManageCommit from '@/views/Staff/ManageCommit.vue'
@@ -21,6 +22,7 @@ import Edit_eva from '@/views/Evaluatee/Edit_eva.vue'
 import Selfeva from '@/views/Evaluatee/Selfeva.vue'
 import Round_eva from '@/views/Staff/Round_eva.vue'
 import Eva from '@/views/Staff/Eva.vue'
+import Check_eva from '@/views/Evaluatee/Check_eva.vue'
 
 
 const router = createRouter({
@@ -116,6 +118,16 @@ const router = createRouter({
           path: '/Selfeva',
           name: 'Selfeva',
           component: Selfeva,
+        },
+        {
+          path: '/Check_score',
+          name: 'Check_score',
+          component: Check_score,
+        },
+        {
+          path: '/Check_eva',
+          name: 'Check_eva',
+          component: Check_eva,
         },
       ]
     },

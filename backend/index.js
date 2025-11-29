@@ -43,6 +43,9 @@ app.use('/api/Eva/me',me)
 const selfeva = require('./routes/Eva/selfeva')
 app.use('/api/Eva/selfeva',selfeva)
 
+const check_eva = require('./routes/Eva/check_eva')
+app.use('/api/Eva/check_eva',check_eva)
+
 
 app.use((req,res) => res.status(404).json({message:'ปิดปรับปรุง!'}))
 
