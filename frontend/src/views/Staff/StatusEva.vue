@@ -1,7 +1,7 @@
 <template>
     <v-container fluid class="py-10">
                  <v-card class="pa-4">
-                        <h1 class="text-h5 text-center font-weight-bold text-maroon">รายงายผลการประเมินของผู้รับประเมิน</h1>
+                        <h1 class="text-h5 text-center font-weight-bold text-maroon">สถานะการประเมินของผู้รับการประเมิน</h1>
                     รายชื่อผู้รับการประเมิน
                     <v-table class="table">
                         <thead>
@@ -11,7 +11,7 @@
                                 <th class="border text-center">รอบการประเมิน</th>
                                 <th class="border text-center">วันที่ออกแบบประเมิน</th>
                                 <th class="border text-center">สถานะการประเมิน</th>
-                                <th class="border text-center">รายละเอียด</th>
+                                <!-- <th class="border text-center">รายละเอียด</th> -->
                             </tr>
                         </thead>
                         <tbody>
@@ -21,9 +21,9 @@
                                 <td class="text-center border">รอบที่ {{ items.round_sys }} ปี {{ items.year_sys }}</td>
                                 <td class="text-center border">{{ items.day_eva }}</td>
                                 <td class="text-center border">{{ items.status_eva === 1 ? 'ประเมินตนเอง' : items.status_eva === 2 ? 'กรรมการประเมิน' : 'ประเมินเสร็จสิ้น' }}</td>
-                                <td class="text-center border">
+                                <!-- <td class="text-center border">
                                     <v-btn color="success" class="text-white" size="small" @click="add(items.id_eva)">รายละเอียด</v-btn>
-                                </td>
+                                </td> -->
                             </tr>
                             <tr v-if="result.length === 0">
                                 <td class="text-center border text-gray-500" colspan="7">ไม่พบข้อมูล</td>

@@ -27,6 +27,9 @@ import Check_eva from '@/views/Evaluatee/Check_eva.vue'
 
 import Eva_commit from '@/views/Staff/Eva_commit.vue'
 import Score_evaList from '@/views/Staff/Score_evaList.vue'
+import Score_commitList from '@/views/Staff/Score_commitList.vue'
+import StatusEva from '@/views/Staff/StatusEva.vue'
+import StatusCommit from '@/views/Staff/StatusCommit.vue'
 
 
 
@@ -97,6 +100,21 @@ const router = createRouter({
           path: '/Score_evaList',
           name: 'Score_evaList',
           component: Score_evaList,
+        },
+        {
+          path: '/Score_commitList',
+          name: 'Score_commitList',
+          component: Score_commitList,
+        },
+        {
+          path: '/StatusEva',
+          name: 'StatusEva',
+          component: StatusEva,
+        },
+        {
+          path: '/StatusCommit',
+          name: 'StatusCommit',
+          component: StatusCommit,
         },
       ]
     },

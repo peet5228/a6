@@ -40,7 +40,7 @@
                                 <td class="text-center border">{{ items.first_name }} {{ items.lsat_name }}</td>
                                 <td class="text-center border">รอบที่ {{ items.round_sys }} ปี {{ items.year_sys }}</td>
                                 <td class="text-center border">{{ items.day_eva }}</td>
-                                <td class="text-center border">{{ items.status_eva === 1 ? 'ผู้รับการประเมิน' : items.status_eva === 2 ? 'กรรมการประเมิน' : 'ประเมินเสร็จสิ้น' }}</td>
+                                <td class="text-center border">{{ items.status_eva === 1 ? 'ประเมินตนเอง' : items.status_eva === 2 ? 'กรรมการประเมิน' : 'ประเมินเสร็จสิ้น' }}</td>
                                 <td class="text-center border">
                                     <v-btn color="warning" class="text-white" size="small" @click="edit(items)">แก้ไข</v-btn>&nbsp;
                                     <v-btn color="error" class="text-white" size="small" @click="del(items.id_eva)">ลบ</v-btn>
@@ -92,7 +92,7 @@ const fetch = async () => {
         member.value = m.data
         const r = await axios.get(`${api}/eva/round`)
         round.value = r.data
-        const res = await axios.get(`${api}/eva`)
+        const res = await axios.get(`${api}/eva/eva`)
         result.value = res.data
     }catch(err){
         console.error('Error Fetching',err)

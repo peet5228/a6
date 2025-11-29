@@ -1,7 +1,7 @@
 <template>
     <v-container fluid class="py-10">
                  <v-card class="pa-4">
-                        <h1 class="text-h5 text-center font-weight-bold text-maroon">รายงายผลการประเมินของผู้รับประเมิน</h1>
+                        <h1 class="text-h5 text-center font-weight-bold text-maroon">สถานะการประเมินของกรรมการ</h1>
                     รายชื่อผู้รับการประเมิน
                     <v-table class="table">
                         <thead>
@@ -56,7 +56,7 @@ const fetch = async () => {
 } 
 
 const add = (id_eva:number) => {
-    router.push({path:`ScoreEva/${id_eva}`})
+    router.push({path:`Status2/${id_eva}`})
 }
 
 onMounted(fetch)
