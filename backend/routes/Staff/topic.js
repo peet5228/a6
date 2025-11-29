@@ -1,4 +1,4 @@
-const express = requir('express')
+const express = require('express')
 const db = require('../../db')
 const router = express.Router()
 
@@ -31,6 +31,7 @@ router.get('/:id_topic',async (req,res) => {
     try{
         const {id_topic} = req.params
         const [rows] = await db.query(`select * from tb_topic where id_topic='${id_topic}' order by id_topic desc`)
+        if(rows.lenth === 0) return res.status(403).json({message:'ไม่พบข้อมูลจากไอดีนี้'})
         res.json(rows)
     }catch(err){
         console.error('Error Get',err)

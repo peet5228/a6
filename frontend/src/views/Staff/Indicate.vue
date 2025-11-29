@@ -1,15 +1,27 @@
 <template>
     <v-container fluid class="py-10">
                  <v-card class="pa-4">
-                        <h1 class="text-h5 text-center font-weight-bold text-maroon">จัดการหัวข้อการประเมิน</h1>
+                        <h1 class="text-h5 text-center font-weight-bold text-maroon">จัดการตัวชี้วัด</h1>
                 <v-form @submit.prevent="saveMember">
                    
                         <hr class="mt-4">
                         <v-row class="mt-4">
-                            <v-col cols="12" md="12">
-                                <v-text-field v-model="form.name_topic" :error-messages="error.name_topic" label="ชื่อหัวข้อ"></v-text-field>
+                            <v-col cols="12" md="6">
+                                <v-select v-model="form.id_topic" label="หัวข้อ" :items="topic.map(t => ({title:t.name_topic,value:t.id_topic}))" />
                             </v-col>
-                            <v-col cols="12" md="6" class="text-center"><v-btn type="submit" color="blue" class="w-full text-white">{{ form.id_topic ? 'อัปเดต' : 'บันทึก' }}</v-btn></v-col>
+                            <v-col cols="12" md="6">
+                                <v-text-field v-model="form.name_indicate" label="ชื่อตัวชี้วัด" />
+                            </v-col>       
+                            <v-col cols="12" md="12">                   
+                                <v-textarea rows="3" v-model="form.detail_indicate" label="รายละเอียด" />
+                            </v-col>
+                            <v-col cols="12" md="6">                   
+                                <v-text-field v-model="form.point_indicate" type="number" label="น้ำหนักคะแนน" />
+                            </v-col>
+                            <v-col cols="12" md="6">
+                                <v-select v-model="form.check_indicate" label="ลักษณะตัวเลือกคะแนน" :items="[{title:'มี',value:'y'},{title:'ไม่มี',value:'n'}]" />
+                            </v-col>
+                            <v-col cols="12" md="6" class="text-center"><v-btn type="submit" color="blue" class="w-full text-white">{{ form.id_indicate ? 'อัปเดต' : 'บันทึก' }}</v-btn></v-col>
                             <v-col cols="12" md="6" class="text-center"><v-btn type="reset" color="error" class="w-full text-white">ยกเลิก</v-btn></v-col>
                         </v-row>
                     </v-form>
@@ -51,22 +63,33 @@ const router = useRouter()
 const api = import.meta.env?.VITE_BASE_API || 'http://localhost:3001/api/Staff'
 
 const result = ref([])
+const topic = ref([])
 
 const form = ref({
-    id_topic:null,
-    name_topic:'',
+    id_indicate:null,
+    id_topic:'',
+    name_indicate:'',
+    detail_indicate:'',
+    point_indicate:'',
+    check_indicate:'',
 })
 
 const reset = () => {
     form.value = {
-        id_topic:null,
-    name_topic:'',
+       id_indicate:null,
+    id_topic:'',
+    name_indicate:'',
+    detail_indicate:'',
+    point_indicate:'',
+    check_indicate:'',
     }
 }
 
 const fetch = async () => {
     try{
-        const res = await axios.get(`${api}/topic`)
+        const t = await axios.get(`${api}/topic`)
+        topic.value = t.data
+        const res = await axios.get(`${api}/indicate`)
         result.value = res.data
     }catch(err){
         console.error('Error Fetching',err)

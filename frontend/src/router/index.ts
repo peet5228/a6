@@ -13,6 +13,8 @@ import Committee from '@/views/Committee/index.vue'
 import Evaluatee from '@/views/Evaluatee/index.vue'
 import ManageEva from '@/views/Staff/ManageEva.vue'
 import ManageCommit from '@/views/Staff/ManageCommit.vue'
+import Topic from '@/views/Staff/Topic.vue'
+import Indicate from '@/views/Staff/Indicate.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -51,6 +53,16 @@ const router = createRouter({
           path: '/ManageCommit',
           name: 'ManageCommit',
           component: ManageCommit,
+        },
+        {
+          path: '/Topic',
+          name: 'Topic',
+          component: Topic,
+        },
+        {
+          path: '/Indicate',
+          name: 'Indicate',
+          component: Indicate,
         },
       ]
     },
