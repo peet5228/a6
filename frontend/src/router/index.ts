@@ -30,6 +30,8 @@ import Score_evaList from '@/views/Staff/Score_evaList.vue'
 import Score_commitList from '@/views/Staff/Score_commitList.vue'
 import StatusEva from '@/views/Staff/StatusEva.vue'
 import StatusCommit from '@/views/Staff/StatusCommit.vue'
+import Stafus2 from '@/views/Staff/Stafus2.vue'
+import ScoreEva from '@/views/Staff/ScoreEva.vue'
 
 
 
@@ -102,6 +104,11 @@ const router = createRouter({
           component: Score_evaList,
         },
         {
+          path: '/ScoreEva/:id_eva',
+          name: 'ScoreEva',
+          component: ScoreEva,
+        },
+        {
           path: '/Score_commitList',
           name: 'Score_commitList',
           component: Score_commitList,
@@ -115,6 +122,11 @@ const router = createRouter({
           path: '/StatusCommit',
           name: 'StatusCommit',
           component: StatusCommit,
+        },
+        {
+          path: '/Status2/:id_eva',
+          name: 'Status2',
+          component: Stafus2,
         },
       ]
     },

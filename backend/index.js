@@ -39,6 +39,13 @@ app.use('/api/Staff/eva',eva)
 const commit = require('./routes/Staff/commit')
 app.use('/api/Staff/commit',commit)
 
+const status = require('./routes/Staff/status')
+app.use('/api/Staff/status',status)
+
+
+const checkEva = require('./routes/Staff/checkEva')
+app.use('/api/Staff/checkEva',checkEva)
+
 //Eva
 const me = require('./routes/Eva/me')
 app.use('/api/Eva/me',me)
