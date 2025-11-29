@@ -20,8 +20,15 @@ app.use('/api/auth',auth)
 const profile = require('./routes/profile')
 app.use('/api/profile',profile)
 
+
 const member = require('./routes/Staff/member')
 app.use('/api/Staff/member',member)
+
+
+//Eva
+const me = require('./routes/Eva/me')
+app.use('/api/Eva/me',me)
+
 
 app.use((req,res) => res.status(404).json({message:'ปิดปรับปรุง!'}))
 

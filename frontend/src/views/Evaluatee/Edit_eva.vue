@@ -55,7 +55,7 @@ const form = ref({
 })
 const confirmPassword = ref('')
 const error = ref<Record<string,string>>({})
-const token = localStorage.getItem('')
+const token = localStorage.getItem('token')
 const fetchUser = async () =>{
     try{
         const res = await axios.get(`http://localhost:3001/api/Eva/me`,{
@@ -69,8 +69,17 @@ const fetchUser = async () =>{
     }
 }
 const saveMember = async () =>{
+    const f = form.value
+    const usePassword = newPassword.value.trim() ? newPassword.value.trim() : f.password
+    const payload = {
+        first_name:f.first_name,
+        last_name:f.last_name,
+        email:f.email,
+        username:f.username,
+        password:usePassword,
+    }
     try{
-        await axios.post(`http://localhost:3001/api/Eva/me`,form.value,{
+        await axios.put(`http://localhost:3001/api/Eva/me`,payload,{
             headers:{Authorization:`Bearer ${token}`}
         })
         alert('แก้ไขสำเร็จ')
